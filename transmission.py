@@ -24,8 +24,7 @@ def draw(line):
 		i += 1
 	screen.printLine("-" * 53)
 
-	screen.sysCall("transmission-remote 9091 -si | grep 'Download directory free space'")
-	screen.sysCall("transmission-remote 9091 -st | egrep 'Uploaded|Downloaded' -m2")
+	screen.sysCall(" transmission-remote 9091  -si -st | egrep 'Uploaded|Downloaded|Download directory free space' -m3")
 
 	screen.printLine("-" * 53)
 	screen.printLine('      **********           |        *** ** ***        ')
@@ -58,4 +57,3 @@ def touch(x,y):
 			stop()
 		if y in range(19,52):
 			start()
-		draw(cLine)

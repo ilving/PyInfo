@@ -19,7 +19,9 @@ def non_block_read(output):
 		return ""
 
 def touch(x,y):
-	global cmd,cLine
+	global cmd,cLine,title
+
+	title = str(x) + ' / ' + str(y)
 
 	if x in range(cLine + 3,cLine + 8):
 		if y in range(0,9): # rewind
@@ -30,8 +32,6 @@ def touch(x,y):
 			startMplayer()
 		if y in range(44,52): # forward (next playlist)
 			fwd()
-
-		draw(cLine)
 
 def getPlayList():
 	playList = []

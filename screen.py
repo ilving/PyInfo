@@ -1,7 +1,5 @@
 import sys,os,types
-from evdev import InputDevice
-
-touch = InputDevice('/dev/input/event0')
+#from evdev import InputDevice
 
 lastX = 0;lastY = 0
 
@@ -10,8 +8,17 @@ def goTo(x,y):
 	sys.stdout.write("\033[" + str(y) + ";" + str(x) + "H")
 
 def printLine(string):
-	string = string.replace("\n",'')
-	string = string.replace("\r",'')
+	string = string.replace("\r","\n")
+	string = string.split("\n")
+
+	if isinstance(string,list):
+		if len(string) == 1:
+			string = string[0]
+		else:
+			if string[-1] == '':
+				string = string[-2]
+			else:
+				string = string[-1]
 
 	if len(string) >= 53:
 		sys.stdout.write(string[0:53])
@@ -26,14 +33,15 @@ def sysCall(cmd):
 		if not line: break
 		printLine(line)
 
-def readTouch():
-	global touch
+def readTouch(event):
 	global lastX,lastY
+
+	if type(event) == types.NoneType:
+		return None
 
 	startX = 237; endX = 3893; resX = 42; kX = (endX - startX)/resX
 	startY = 220; endY = 3873; resY = 52; kY = (endY - startY)/resY
 
-	event = touch.read_one()
 	if type(event) == types.NoneType: return None
 	if event.type != 3: return None
 
