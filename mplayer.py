@@ -21,8 +21,6 @@ def non_block_read(output):
 def touch(x,y):
 	global cmd,cLine,title
 
-	title = str(x) + ' / ' + str(y)
-
 	if x in range(cLine + 3,cLine + 8):
 		if y in range(0,9): # rewind
 			rew()
